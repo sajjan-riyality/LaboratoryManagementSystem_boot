@@ -21,17 +21,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        // Fetch user from DB
+        
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        // Map roles to Spring Security authorities
+       
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())
                 .password(user.getPassword()) 
                 .authorities(
                         user.getRoles().stream()
-                            .map(role -> new SimpleGrantedAuthority(role.getName().name())) // RoleType enum to string
+                            .map(role -> new SimpleGrantedAuthority(role.getName().name())) 
                             .collect(Collectors.toList())
                 )
                 .build();
