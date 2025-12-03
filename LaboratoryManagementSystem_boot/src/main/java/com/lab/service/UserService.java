@@ -9,4 +9,6 @@ public interface UserService {
     UserDTO register(UserDTO dto);
 
     LoginResponse login(LoginRequest request);
+
+	String getRoleByUsername(String username);
 }
